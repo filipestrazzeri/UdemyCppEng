@@ -12,11 +12,9 @@ int main()
     }
     else if (!b2)
     {
-
     }
     else
     {
-
     }
 
     std::int32_t result;

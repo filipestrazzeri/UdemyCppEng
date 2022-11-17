@@ -23,8 +23,14 @@ Any GCC, Clang or MSVC compiler
 
 ### Extra settings
 
+#### Windows
+
+```json
+  "C_Cpp_Runner.cppStandard": "c++latest",
+```
+
+#### Linux/Mac
+
 ```json
   "C_Cpp_Runner.cppStandard": "c++20",
-  // or use, if this works
-  "C_Cpp_Runner.cppStandard": "c++23",
 ```

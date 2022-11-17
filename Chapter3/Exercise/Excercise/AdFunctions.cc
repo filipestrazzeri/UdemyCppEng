@@ -2,5 +2,5 @@
 #include <cstdint>
 #include <iostream>
 
-#include "AdConstants.hpp"
-#include "AdFunctions.hpp"
+#include "AdConstants.h"
+#include "AdFunctions.h"

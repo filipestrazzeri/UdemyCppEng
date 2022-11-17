@@ -1,59 +1,47 @@
 # Exercise
 
-The use case is a "self-driving car" on a highway with three lanes (Left, Center, and Right lane).  
-Our car is the so-called ego vehicle.  
-The fictive *radars* and *cameras* of the ego vehicle detect other vehicles that are nearby.  
-
-Example image other vehicles (V) ego vehicle (E):
-
-![vehicle](../../media/vehicle.png)
-
-Note: this plot will be implemented in the coming exercise, here it is just for illustration.
-
-For now, implement the following types:
+Implement the following types:
 
 ```cpp
 // Namespace: Ad::Types
-enum ... LaneAssociationType
+struct NeighborVehiclesType
 {
-    // Unknown Lane
-    // Left Lane
-    // Center Lane
-    // Right Lane
-};
-
-// Namespace: Ad::Types
-struct VehicleType
-{
-    // Id
-    // Lane
-    // Speed (meter/s)
-    // Relative Distance (meter)
+    // Array for nearby vehicles on left lane (2 vehicles in total)
+    // Array for nearby vehicles on center lane (2 vehicles in total)
+    // Array for nearby vehicles on right lane (2 vehicles in total)
 };
 ```
 
 Implement the following functions:
 
 ```cpp
-// namespace Ad::Utils
-float kph_to_mps(const float kph);
+// Namespace Ad::Data
+void init_vehicles(NeighborVehiclesType &vehicles);
 
-// namespace Ad::Data
-void init_ego_vehicle(VehicleType ego_vehicle);
+// Namespace Ad::Visualize
+void print_vehicle(const VehicleType &vehicle);
 
-// namespace Ad::Visualize
-void print_vehicle(const VehicleType vehicle);
+// Namespace Ad::Visualize
+void print_neighbor_vehicles(const NeighborVehiclesType &vehicles);
+
+// Namespace Ad::Visualize
+void print_scene(const VehicleType &ego_vehicle,
+                 const NeighborVehiclesType &vehicles);
 ```
 
-- kph_to_mps
-  - Convert the $\frac{km}{h}$ input to $\frac{m}{s}$
-- init_ego_vehicle
-  - Init the ego vehicle with the following attributes
-    - ID=-1
-    - Speed=135kph
-    - Lane=Center
+- init_vehicles
+  - Init the nearby vehicles for each lane
+    - IDs starting at 0
+    - Feel free to choose the speed and the distance
 - print_vehicle
   - Print the ID, Speed, and Distance of a vehicle
+- print_neighbor_vehicles
+  - Iterate over all vehicles and print out their data
+- print_scene
+  - Output the vehicles at their postion (regarding the relative distance and lane)
+  - Every *row* of the console output has a size of 20 meters
+
+![vehicle](../../media/vehicle.png)
 
 ## Main Function
 
@@ -68,7 +56,12 @@ void print_vehicle(const VehicleType vehicle);
 int main()
 {
     auto ego_vehicle = Ad::Data::init_ego_vehicle();
+    auto vehicles = Ad::Data::init_vehicles();
+
     Ad::Visualize::print_vehicle(ego_vehicle);
+    Ad::Visualize::print_neighbor_vehicles(vehicles);
+
+    Ad::Visualize::print_scene(ego_vehicle, vehicles);
 
     return 0;
 }
