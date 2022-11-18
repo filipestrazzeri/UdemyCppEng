@@ -1,11 +1,11 @@
 #include <cstdint>
 #include <iterator>
-#include <list>
+#include <vector>
 
 namespace mystd
 {
 
-using It = std::list<std::int32_t>::iterator;
+using It = std::vector<std::int32_t>::iterator;
 using DifferenceType = It::difference_type;
 
 void advance(It &it, DifferenceType n)
