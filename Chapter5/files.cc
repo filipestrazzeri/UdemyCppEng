@@ -14,11 +14,11 @@ void print_player_pos(const PlayerData &player)
     std::cout << "Pos: (" << player.x_pos << ", " << player.y_pos << ")\n";
 }
 
-int append_line_to_file(const std::string &filepath, const std::string &line)
+int write_line_to_file(std::string_view filepath, const std::string &line)
 {
     auto file = std::ofstream{};
 
-    file.open(filepath, std::ios::out | std::ios::app);
+    file.open(filepath.data(), std::ios::out); // | std::ios::app);
     if (file.fail())
         return 1;
 
@@ -27,14 +27,16 @@ int append_line_to_file(const std::string &filepath, const std::string &line)
     if (!file.good())
         return 1;
 
+    // file.close();
+
     return 0;
 }
 
-int write_to_bin_file(const std::string &filepath, const PlayerData &data)
+int write_to_bin_file(std::string_view filepath, const PlayerData &data)
 {
     auto file = std::ofstream{};
 
-    file.open(filepath, std::ios::out | std::ios::binary);
+    file.open(filepath.data(), std::ios::out | std::ios::binary);
     if (file.fail())
         return 1;
 
@@ -46,11 +48,11 @@ int write_to_bin_file(const std::string &filepath, const PlayerData &data)
     return 0;
 }
 
-int read_from_bin_file(const std::string &filepath, PlayerData &data)
+int read_from_bin_file(std::string_view filepath, PlayerData &data)
 {
     auto file = std::ifstream{};
 
-    file.open(filepath, std::ios::in | std::ios::binary);
+    file.open(filepath.data(), std::ios::in | std::ios::binary);
     if (file.fail())
         return 1;
 
@@ -66,7 +68,7 @@ int main()
 {
     const auto text = std::string{"My sample text."};
     const auto filename1 = std::string{"text.txt"};
-    append_line_to_file(filename1, text);
+    write_line_to_file(filename1, text);
 
     const auto player = PlayerData{.id = 0, .x_pos = 10.0F, .y_pos = 110.0F};
     const auto filename2 = std::string{"text.bin"};

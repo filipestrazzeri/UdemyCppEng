@@ -8,11 +8,6 @@ public:
     Matrix(const T &A, const T &B, const T &C, const T &D);
     ~Matrix() = default;
 
-    Matrix operator+(const Matrix &rhs);
-    Matrix &operator+=(const Matrix &rhs);
-    Matrix operator-(const Matrix &rhs);
-    Matrix &operator-=(const Matrix &rhs);
-
     void print_matrix() const;
 
     T get_A() const;
@@ -30,10 +25,12 @@ private:
     T m_B;
     T m_C;
     T m_D;
+    std::uint32_t num_rows = 2;
+    std::uint32_t num_cols = 2;
 };
 
 template <typename T>
-Matrix<T>::Matrix() : m_A(0.0), m_B(0.0), m_C(0.0), m_D(0.0)
+Matrix<T>::Matrix() : m_A(T{}), m_B(T{}), m_C(T{}), m_D(T{})
 {
 }
 
@@ -41,54 +38,6 @@ template <typename T>
 Matrix<T>::Matrix(const T &A, const T &B, const T &C, const T &D)
     : m_A(A), m_B(B), m_C(C), m_D(D)
 {
-}
-
-template <typename T>
-Matrix<T> Matrix<T>::operator+(const Matrix<T> &rhs)
-{
-    auto result = Matrix{};
-
-    result.set_A(this->get_A() + rhs.get_A());
-    result.set_B(this->get_B() + rhs.get_B());
-    result.set_C(this->get_C() + rhs.get_C());
-    result.set_D(this->get_D() + rhs.get_D());
-
-    return result;
-}
-
-template <typename T>
-Matrix<T> &Matrix<T>::operator+=(const Matrix<T> &rhs)
-{
-    this->set_A(this->get_A() + rhs.get_A());
-    this->set_B(this->get_B() + rhs.get_B());
-    this->set_C(this->get_C() + rhs.get_C());
-    this->set_D(this->get_D() + rhs.get_D());
-
-    return *this;
-}
-
-template <typename T>
-Matrix<T> Matrix<T>::operator-(const Matrix<T> &rhs)
-{
-    auto result = Matrix{};
-
-    result.set_A(get_A() - rhs.get_A());
-    result.set_B(get_B() - rhs.get_B());
-    result.set_C(get_C() - rhs.get_C());
-    result.set_D(get_D() - rhs.get_D());
-
-    return result;
-}
-
-template <typename T>
-Matrix<T> &Matrix<T>::operator-=(const Matrix<T> &rhs)
-{
-    set_A(get_A() - rhs.get_A());
-    set_B(get_B() - rhs.get_B());
-    set_C(get_C() - rhs.get_C());
-    set_D(get_D() - rhs.get_D());
-
-    return *this;
 }
 
 template <typename T>

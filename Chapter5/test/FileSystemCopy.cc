@@ -5,13 +5,12 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    fs::path workspace_path = "C:/Users/Jan/Dektop/UdemyCppEng";
-    fs::path chapter_path;
-    chapter_path = workspace_path;
+    auto workspace_path = fs::path{"C:\\Users\\Jan\\Dektop\\UdemyCppEng"};
+    auto chapter_path = workspace_path;
     chapter_path /= "Chapter5";
     std::cout << chapter_path << '\n';
 
-    fs::path current_path = fs::current_path();
+    auto current_path = fs::current_path();
     current_path /= "file_systems.cc";
     std::cout << current_path << '\n';
 
@@ -28,15 +27,14 @@ int main()
     std::cout << "is_directory: " << std::boolalpha
               << fs::is_directory(current_path) << '\n';
 
-    for (auto it = fs::directory_iterator(chapter_path);
+    for (auto it = fs::directory_iterator(fs::current_path());
          it != fs::directory_iterator{};
          ++it)
     {
         std::cout << *it << '\n';
     }
 
-    fs::path new_directory_path;
-    new_directory_path /= fs::current_path();
+    auto new_directory_path = fs::current_path();
     new_directory_path /= "test";
 
     if (!fs::exists(new_directory_path))
@@ -44,8 +42,7 @@ int main()
         fs::create_directory(new_directory_path);
     }
 
-    fs::path new_file_path;
-    new_file_path /= new_directory_path;
+    auto new_file_path = new_directory_path;
     new_file_path /= "FileSystemCopy.cc";
 
     if (!fs::exists(new_file_path))

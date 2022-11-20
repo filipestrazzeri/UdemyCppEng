@@ -2,6 +2,16 @@
 #include <iterator>
 #include <vector>
 
+template <typename T>
+void print_vector(const std::vector<T> &vec)
+{
+    for (const auto v : vec)
+    {
+        std::cout << v << '\n';
+    }
+    std::cout << '\n';
+}
+
 int main()
 {
     auto my_vector = std::vector{0, 1, 2, 3, 4, 5};
@@ -14,6 +24,7 @@ int main()
     {
         *it1 = 1;
     }
+    print_vector(my_vector);
 
     // BidirectionalIterator
     auto it3 = my_vector.rbegin();
@@ -23,6 +34,7 @@ int main()
     {
         *it3 = 2;
     }
+    print_vector(my_vector);
 
     // Const ForwardIterator
     auto it5 = my_vector.cbegin();
@@ -42,13 +54,9 @@ int main()
     //     *it7 = 2;
     // }
 
-    auto vec_it = my_vector.begin();
+    auto vec_it = my_vector.begin(); // point ot index 0
     std::advance(vec_it, 2); // it += 2;
-    auto list_it = my_vector.begin();
-    std::advance(list_it, 2); // it += 2;
-
     std::cout << "Vector[2] = " << *vec_it << '\n';
-    std::cout << "List[2] = " << *list_it << '\n';
 
     auto dist1 = std::distance(vec_it, my_vector.end());
     auto dist2 = std::distance(my_vector.begin(), vec_it);

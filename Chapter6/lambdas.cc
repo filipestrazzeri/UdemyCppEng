@@ -13,6 +13,7 @@ public:
         return n > 0;
     }
 };
+auto l = [](const auto n){ return n > 0; };
 
 template <typename T>
 class _lambda2
@@ -46,7 +47,8 @@ void print_vector(const std::vector<T> &vec)
     std::cout << '\n';
 }
 
-bool check_even(const int value)
+template <typename T>
+bool check_even(const T value)
 {
     return (value % 2) == 0;
 }
@@ -63,11 +65,13 @@ int main()
     }
     std::cout << '\n';
 
-    auto filter_even = [](const auto value) { return (value % 2) == 0; };
+    const auto N = 3;
+    //                Cap. List, Param List, Function Body
+    auto filter = [N](const auto value) {return (value % N) == 0;};
 
     for (const auto val : my_vector)
     {
-        std::cout << std::boolalpha << filter_even(val) << '\n';
+        std::cout << std::boolalpha << filter(val) << '\n';
     }
     std::cout << '\n';
 

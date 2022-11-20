@@ -3,9 +3,16 @@
 #include <iostream>
 #include <string>
 
+// default
+// delete
+// override
+// final
+
 class Agent
 {
 public:
+    Agent() = delete;
+
     Agent(const std::string &name,
           const std::uint32_t id,
           const std::uint32_t hp = 0U,
@@ -15,10 +22,7 @@ public:
         std::cout << "Agent Constructor!" << '\n';
     }
 
-    ~Agent()
-    {
-        std::cout << "Agent Destructor!" << '\n';
-    }
+    virtual ~Agent() = default;
 
     virtual void print_agent_data() const
     {
@@ -49,7 +53,7 @@ public:
         std::cout << "Player Destructor!" << '\n';
     }
 
-    void print_agent_data() const override
+    void print_agent_data() const final
     {
         std::cout << "Player hp: " << m_hp << ", energy: " << m_energy << '\n';
     }
@@ -72,7 +76,7 @@ public:
         std::cout << "NPC Destructor!" << '\n';
     }
 
-    void print_agent_data() const override
+    void print_agent_data() const final
     {
         std::cout << "NPC hp: " << m_hp << ", energy: " << m_energy << '\n';
     }

@@ -6,7 +6,7 @@ public:
     AttackInterface() = default;
     ~AttackInterface() = default;
 
-    virtual void attack() = 0;
+    virtual void attack() const = 0;
 };
 
 class Weapon : public AttackInterface
@@ -19,7 +19,7 @@ public:
            const bool _dual_handed)
         : name(_name), damage(_damage), attack_speed(_attack_speed),
           single_handed(_single_handed), dual_handed(_dual_handed){};
-    ~Weapon() = default;
+    virtual ~Weapon() = default;
 
     std::string get_name() const;
     float get_damage() const;
@@ -38,19 +38,23 @@ protected:
 class Axe : public Weapon
 {
 public:
-    Axe(const std::string &_name, const float _damage, const float _attack_speed)
+    Axe(const std::string &_name,
+        const float _damage,
+        const float _attack_speed)
         : Weapon(_name, _damage, _attack_speed, true, false){};
-    ~Axe() = default;
+    virtual ~Axe() = default;
 
-    void attack() final;
+    void attack() const final;
 };
 
 class Longbow : public Weapon
 {
 public:
-    Longbow(const std::string &_name, const float _damage, const float _attack_speed)
+    Longbow(const std::string &_name,
+            const float _damage,
+            const float _attack_speed)
         : Weapon(_name, _damage, _attack_speed, false, true){};
-    ~Longbow() = default;
+    virtual ~Longbow() = default;
 
-    void attack() final;
+    void attack() const final;
 };

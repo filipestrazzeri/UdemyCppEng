@@ -5,9 +5,8 @@ namespace fs = std::filesystem;
 
 int main()
 {
-    auto workspace_path = fs::path{"C:/Users/Jan/Dektop/UdemyCppEng"};
-    auto chapter_path = fs::path{};
-    chapter_path = workspace_path;
+    auto workspace_path = fs::path{"C:\\Users\\Jan\\Dektop\\UdemyCppEng"};
+    auto chapter_path = workspace_path;
     chapter_path /= "Chapter5";
     std::cout << chapter_path << '\n';
 
@@ -35,7 +34,7 @@ int main()
         std::cout << *it << '\n';
     }
 
-    auto new_directory_path= fs::current_path();
+    auto new_directory_path = fs::current_path();
     new_directory_path /= "test";
 
     if (!fs::exists(new_directory_path))

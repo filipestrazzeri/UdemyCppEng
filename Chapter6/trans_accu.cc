@@ -1,6 +1,7 @@
-#include <chrono>
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
+#include <numeric>
 #include <random>
 #include <vector>
 
@@ -31,14 +32,20 @@ int main()
     std::generate(my_vector.begin(), my_vector.end(), gen);
     print_vector(my_vector);
 
-    auto l = [](const auto val) { return (val > -5) && (val < 5); };
-    const auto check1 = std::all_of(my_vector.begin(), my_vector.end(), l);
-    const auto check2 = std::any_of(my_vector.begin(), my_vector.end(), l);
-    const auto check3 = std::none_of(my_vector.begin(), my_vector.end(), l);
+    std::transform(my_vector.begin(),
+                   my_vector.end(),
+                   my_vector.begin(),
+                   [](const auto val) { return val * 2; });
+    print_vector(my_vector);
 
-    std::cout << std::boolalpha << check1 << '\n';
-    std::cout << std::boolalpha << check2 << '\n';
-    std::cout << std::boolalpha << check3 << '\n';
+    std::transform(my_vector.begin(),
+                   my_vector.end(),
+                   my_vector.begin(),
+                   [](const auto val) { return val / 2; });
+    print_vector(my_vector);
+
+    const auto sum1 = std::accumulate(my_vector.begin(), my_vector.end(), 0);
+    std::cout << sum1 << '\n';
 
     return 0;
 }

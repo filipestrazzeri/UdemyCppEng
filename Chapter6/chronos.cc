@@ -4,7 +4,7 @@
 #include <random>
 #include <vector>
 
-using ClockType = std::chrono::steady_clock;
+using ClockType = std::chrono::steady_clock ;
 using ClockRes = std::chrono::microseconds;
 
 constexpr static auto NUM_ELEMENTS = 1'000'000U;
@@ -26,7 +26,7 @@ int main()
 
     const auto elapsed_time =
         std::chrono::duration_cast<ClockRes>(end_time - start_time).count();
-    std::cout << "Elapsed time: " << elapsed_time << ' us\n';
+    std::cout << "Elapsed time: " << elapsed_time << " us\n";
 
     return 0;
 }

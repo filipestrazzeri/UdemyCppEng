@@ -14,7 +14,7 @@ public:
     float get_damage() const;
     float get_attack_speed() const;
 
-protected:
+private:
     std::string name;
     float damage;
     float attack_speed;

@@ -27,12 +27,12 @@ bool Weapon::get_dual_handed() const
     return dual_handed;
 }
 
-void Axe::attack()
+void Axe::attack() const
 {
     std::cout << "Attacking with an axe\n";
 }
 
-void Longbow::attack()
+void Longbow::attack() const
 {
     std::cout << "Attacking with a longbow\n";
 }

@@ -16,7 +16,7 @@ int new_approach2(std::function<int(int)> func)
 
 int main()
 {
-        auto param = int{1};
+    auto param = int{1};
 
     // Old C-style approach
     int (*old_approach)(int);

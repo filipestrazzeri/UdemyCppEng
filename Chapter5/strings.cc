@@ -19,7 +19,7 @@ int main()
     std::cout << text.empty() << '\n';
     std::cout << text.length() << '\n';
 
-    const auto search_str1 = "e";
+    const auto search_str1 = "eo";
     const auto idx1 = text.find(search_str1, 5);
     print_found_idx(idx1, "find");
 
@@ -37,6 +37,7 @@ int main()
     const auto idx = s1.find(search_str);
     if (idx != std::string::npos)
         s1.replace(idx, 2, "n");
+    std::cout << s1 << '\n';
 
     const auto sub_str = s1.substr(2, 3);
     std::cout << sub_str << '\n';
@@ -44,8 +45,6 @@ int main()
     auto si = std::to_string(42);      // si="42"
     auto sl = std::to_string(42L);     // sl="42"
     auto su = std::to_string(42u);     // su="42"
-    auto sd = std::to_wstring(42.0);   // sd=L"42.000000"
-    auto sld = std::to_wstring(42.0L); // sld=L"42.000000"
 
     auto i1 = std::stoi("42");                 // i1 = 42
     auto i2 = std::stoi("101010", nullptr, 2); // i2 = 42

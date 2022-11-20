@@ -13,9 +13,9 @@ int main()
     auto gen = std::mt19937{seed()};
     auto dist = std::uniform_int_distribution<std::int32_t>{-10, 10};
 
-    for (std::size_t i = 0; i < my_vector.size(); ++i)
+    for (auto &val : my_vector)
     {
-        my_vector[i] = dist(gen);
+        val = dist(gen);
     }
 
     for (std::size_t i = 0; i < 10; ++i)

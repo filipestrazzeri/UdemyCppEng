@@ -6,7 +6,15 @@ class Matrix
 public:
     Matrix();
     Matrix(const T &A, const T &B, const T &C, const T &D);
-    ~Matrix() = default;
+    ~Matrix() noexcept = default;
+
+    // Copy-Constructor/Assignment Operator
+    Matrix(const Matrix &other);
+    Matrix &operator=(const Matrix &other);
+
+    // Move-Constructor/Assignment Operator
+    Matrix(Matrix &&other) noexcept;
+    Matrix &operator=(Matrix &&other) noexcept;
 
     Matrix operator+(const Matrix &rhs);
     Matrix &operator+=(const Matrix &rhs);
@@ -40,6 +48,28 @@ Matrix<T>::Matrix() : m_A(0.0), m_B(0.0), m_C(0.0), m_D(0.0)
 template <typename T>
 Matrix<T>::Matrix(const T &A, const T &B, const T &C, const T &D)
     : m_A(A), m_B(B), m_C(C), m_D(D)
+{
+}
+
+// Copy-Constructor/Assignment Operator
+template <typename T>
+Matrix<T>::Matrix(const Matrix<T> &other)
+{
+}
+
+template <typename T>
+Matrix<T> &Matrix<T>::operator=(const Matrix<T> &other)
+{
+}
+
+// Move-Constructor/Assignment Operator
+template <typename T>
+Matrix<T>::Matrix(Matrix<T> &&other) noexcept
+{
+}
+
+template <typename T>
+Matrix<T> &Matrix<T>::operator=(Matrix<T> &&other) noexcept
 {
 }
 
