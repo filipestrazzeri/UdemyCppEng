@@ -15,12 +15,12 @@ void function(const std::int32_t input, std::int32_t &output)
 
 int main()
 {
-    std::array<std::thread, NUM_THREADS> threads;
-    std::array<std::int32_t, NUM_THREADS> inputs{};
-    std::array<std::int32_t, NUM_THREADS> outputs{};
-
+    auto inputs = std::array<std::int32_t, NUM_THREADS>{};
     std::iota(inputs.begin(), inputs.end(), 0);
+    auto outputs = std::array<std::int32_t, NUM_THREADS>{};
     std::fill(outputs.begin(), outputs.end(), 0);
+
+    std::array<std::thread, NUM_THREADS> threads;
 
     cpptiming::Timer timer;
 
