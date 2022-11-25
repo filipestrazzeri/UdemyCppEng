@@ -3,14 +3,18 @@
 #include <iostream>
 #include <numeric>
 #include <thread>
+#include <chrono>
 
-#include "Timer.h"
+constexpr static auto NUM_THREADS = std::uint32_t{3};
 
-constexpr std::uint32_t NUM_THREADS = 3;
-
-void function(const std::int32_t input, std::int32_t &output)
+void worker(const std::int32_t input, std::int32_t &output)
 {
+    std::cout << "Called worker from Thread: " << std::this_thread::get_id()
+              << '\n';
+
     output = input * 2;
+
+    std::this_thread::sleep_for(std::chrono::seconds(20));
 }
 
 int main()
@@ -20,13 +24,12 @@ int main()
     auto outputs = std::array<std::int32_t, NUM_THREADS>{};
     std::fill(outputs.begin(), outputs.end(), 0);
 
+    std::cout << "Main Thread ID: " << std::this_thread::get_id() << '\n';
+
     std::array<std::thread, NUM_THREADS> threads;
-
-    cpptiming::Timer timer;
-
     for (std::uint32_t i = 0; i < NUM_THREADS; ++i)
     {
-        threads[i] = std::thread(function, inputs[i], std::ref(outputs[i]));
+        threads[i] = std::thread(worker, inputs[i], std::ref(outputs[i]));
     }
 
     // ...
@@ -35,9 +38,6 @@ int main()
     {
         threads[i].join();
     }
-
-    auto time_us = timer.elapsed_time<cpptiming::microsecs, double>();
-    std::cout << "Time in us: " << time_us << '\n';
 
     for (std::uint32_t i = 0; i < NUM_THREADS; ++i)
     {

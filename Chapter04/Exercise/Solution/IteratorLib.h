@@ -25,7 +25,7 @@ void advance(It &it, DifferenceType n)
 
 DifferenceType distance(It first, It last)
 {
-    DifferenceType result = 0;
+    auto result = DifferenceType{0};
 
     while (first != last)
     {

@@ -10,6 +10,8 @@ namespace Ad
 namespace Types
 {
 
+using namespace Ad::Constants;
+
 enum class LaneAssociationType
 {
     LEFT,
@@ -28,12 +30,9 @@ struct VehicleType
 
 struct NeighborVehiclesType
 {
-    std::array<VehicleType, Ad::Constants::NUM_VEHICLES_ON_LANE>
-        vehicles_left_lane;
-    std::array<VehicleType, Ad::Constants::NUM_VEHICLES_ON_LANE>
-        vehicles_center_lane;
-    std::array<VehicleType, Ad::Constants::NUM_VEHICLES_ON_LANE>
-        vehicles_right_lane;
+    std::array<VehicleType, NUM_VEHICLES_ON_LANE> vehicles_left_lane;
+    std::array<VehicleType, NUM_VEHICLES_ON_LANE> vehicles_center_lane;
+    std::array<VehicleType, NUM_VEHICLES_ON_LANE> vehicles_right_lane;
 };
 
 } // namespace Types

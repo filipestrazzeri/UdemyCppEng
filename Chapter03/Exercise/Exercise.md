@@ -1,5 +1,7 @@
 # Exercise
 
+Important: In our use-case we assume that there will be always 2 vehicles on each lane of the highway.
+
 Implement the following types:
 
 ```cpp

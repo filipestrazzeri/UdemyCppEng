@@ -4,45 +4,51 @@
 #include <mutex>
 #include <numeric>
 #include <thread>
+#include <cassert>
 
-#include "Timer.h"
+constexpr static auto NUM_THREADS = std::uint32_t{20};
+constexpr static auto NUM_INCREMENTS = std::uint32_t{100'000};
 
-constexpr std::uint32_t NUM_THREADS = 3;
-constexpr std::uint32_t NUM_INCREMENTS = 100'000;
+auto global_counter = std::int32_t{0};
 
-std::mutex mutex;
-std::int32_t global_counter = 0;
-
-void function(const std::int32_t input, std::int32_t &output)
+void worker1(const std::int32_t input, std::int32_t &output)
 {
     output = input * 2;
 
-    std::int32_t local_counter = 0;
+    for (std::uint32_t i = 0; i < NUM_INCREMENTS; ++i)
+    {
+        ++global_counter;
+    }
+}
+
+auto mutex = std::mutex{};
+
+void worker2(const std::int32_t input, std::int32_t &output)
+{
+    output = input * 2;
+
+    auto local_counter = std::uint32_t{0U};
 
     for (std::uint32_t i = 0; i < NUM_INCREMENTS; ++i)
     {
         ++local_counter;
     }
 
-    std::lock_guard<std::mutex> guard(mutex);
-
+    auto guard = std::lock_guard<std::mutex>{mutex};
     global_counter += local_counter;
 }
 
 int main()
 {
-    std::array<std::thread, NUM_THREADS> threads;
-    std::array<std::int32_t, NUM_THREADS> inputs{};
-    std::array<std::int32_t, NUM_THREADS> outputs{};
-
+    auto inputs = std::array<std::int32_t, NUM_THREADS>{};
     std::iota(inputs.begin(), inputs.end(), 0);
+    auto outputs = std::array<std::int32_t, NUM_THREADS>{};
     std::fill(outputs.begin(), outputs.end(), 0);
 
-    cpptiming::Timer timer;
-
+    std::array<std::thread, NUM_THREADS> threads;
     for (std::uint32_t i = 0; i < NUM_THREADS; ++i)
     {
-        threads[i] = std::thread(function, inputs[i], std::ref(outputs[i]));
+        threads[i] = std::thread(worker2, inputs[i], std::ref(outputs[i]));
     }
 
     // ...
@@ -52,15 +58,13 @@ int main()
         threads[i].join();
     }
 
-    auto time_us = timer.elapsed_time<cpptiming::microsecs, double>();
-    std::cout << "Time in us: " << time_us << '\n';
-
     for (std::uint32_t i = 0; i < NUM_THREADS; ++i)
     {
         std::cout << "Outputs[" << i << "] = " << outputs[i] << '\n';
     }
 
     std::cout << "Global counter = " << global_counter << '\n';
+    assert(global_counter == NUM_THREADS * NUM_INCREMENTS);
 
     return 0;
 }

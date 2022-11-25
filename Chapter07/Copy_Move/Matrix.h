@@ -6,15 +6,15 @@ class Matrix
 public:
     Matrix();
     Matrix(const T &A, const T &B, const T &C, const T &D);
-    ~Matrix() noexcept = default;
 
-    // Copy-Constructor/Assignment Operator
-    Matrix(const Matrix &other);
-    Matrix &operator=(const Matrix &other);
-
-    // Move-Constructor/Assignment Operator
-    Matrix(Matrix &&other) noexcept;
-    Matrix &operator=(Matrix &&other) noexcept;
+    /****************/
+    /* RULE OF FIVE */
+    /****************/
+    ~Matrix() noexcept;
+    Matrix(const Matrix &other); // copy constr
+    Matrix &operator=(const Matrix &other); // copy assignm operator
+    Matrix(Matrix &&other) noexcept; // move constr
+    Matrix &operator=(Matrix &&other) noexcept; // move assignm operator;
 
     Matrix operator+(const Matrix &rhs);
     Matrix &operator+=(const Matrix &rhs);
@@ -43,34 +43,78 @@ private:
 template <typename T>
 Matrix<T>::Matrix() : m_A(0.0), m_B(0.0), m_C(0.0), m_D(0.0)
 {
+    std::cout << "Calling Cstr\n";
 }
 
 template <typename T>
 Matrix<T>::Matrix(const T &A, const T &B, const T &C, const T &D)
     : m_A(A), m_B(B), m_C(C), m_D(D)
 {
+    std::cout << "Calling Cstr\n";
 }
 
-// Copy-Constructor/Assignment Operator
+template <typename T>
+Matrix<T>::~Matrix() noexcept
+{
+    std::cout << "Calling Dstr\n";
+}
+
 template <typename T>
 Matrix<T>::Matrix(const Matrix<T> &other)
+    : m_A(other.get_A()), m_B(other.get_B()), m_C(other.get_C()),
+      m_D(other.get_D())
 {
+    std::cout << "Copy constructor\n";
 }
 
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(const Matrix<T> &other)
 {
+    if (this != &other)
+    {
+        m_A = other.get_A();
+        m_B = other.get_B();
+        m_C = other.get_C();
+        m_D = other.get_D();
+    }
+
+    std::cout << "Copy assignment\n";
+
+    return *this;
 }
 
-// Move-Constructor/Assignment Operator
 template <typename T>
 Matrix<T>::Matrix(Matrix<T> &&other) noexcept
+    : m_A(std::move(other.m_A)), m_B(std::move(other.m_B)),
+      m_C(std::move(other.m_C)), m_D(std::move(other.m_D))
 {
+    other.m_A = T{};
+    other.m_B = T{};
+    other.m_C = T{};
+    other.m_D = T{};
+
+    std::cout << "Move constructor\n";
 }
 
 template <typename T>
 Matrix<T> &Matrix<T>::operator=(Matrix<T> &&other) noexcept
 {
+    if (this != &other)
+    {
+        m_A = std::move(other.m_A);
+        m_B = std::move(other.m_B);
+        m_C = std::move(other.m_C);
+        m_D = std::move(other.m_D);
+
+        other.m_A = T{};
+        other.m_B = T{};
+        other.m_C = T{};
+        other.m_D = T{};
+    }
+
+    std::cout << "Move assignment\n";
+
+    return *this;
 }
 
 template <typename T>

@@ -3,11 +3,7 @@
 Implement the following functions:
 
 ```cpp
-namespace mystd
-{
-
-using Container = std::vector<std::int32_t>;
-using Iterator = Container::iterator;
+using Iterator = std::vector<std::int32_t>::iterator;
 
 bool equal(Iterator first1, Iterator last1, Iterator first2);
 
@@ -18,8 +14,6 @@ void iota(Iterator first, Iterator last, std::int32_t value);
 Iterator copy(Iterator first, Iterator last, Iterator d_first);
 
 std::int32_t accumulate(Iterator first, Iterator last, std::int32_t init);
-
-} // namespace mystd
 ```
 
 - equal
