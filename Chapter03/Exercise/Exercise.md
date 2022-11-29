@@ -18,7 +18,7 @@ Implement the following functions:
 
 ```cpp
 // Namespace Ad::Data
-void init_vehicles(NeighborVehiclesType &vehicles);
+NeighborVehiclesType init_vehicles();
 
 // Namespace Ad::Visualize
 void print_vehicle(const VehicleType &vehicle);

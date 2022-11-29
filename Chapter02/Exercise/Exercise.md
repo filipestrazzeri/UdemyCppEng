@@ -39,7 +39,7 @@ Implement the following functions:
 float kph_to_mps(const float kph);
 
 // namespace Ad::Data
-void init_ego_vehicle(VehicleType ego_vehicle);
+VehicleType init_ego_vehicle();
 
 // namespace Ad::Visualize
 void print_vehicle(const VehicleType vehicle);
